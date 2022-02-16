@@ -7,9 +7,10 @@ const player1 = {
   hp: 100,
   img: "http://reactmarathon-api.herokuapp.com/assets/sonya.gif",
   weapon: ["Knife", "Sword"],
-  attack: function (name) {
-    alert(player1.name + "Fight...");
-  },
+  attack: attack,
+  elHP: elHP,
+  renderHP: renderHP,
+  changeHP: changeHP
 };
 
 const player2 = {
@@ -18,10 +19,31 @@ const player2 = {
   hp: 100,
   img: "http://reactmarathon-api.herokuapp.com/assets/kitana.gif",
   weapon: ["Bade", "Poison"],
-  attack: function (name) {
-    alert(player2.name + "Fight...");
-  },
+  attack: attack,
+  elHP: elHP,
+  renderHP: renderHP,
+  changeHP: changeHP
 };
+
+function attack() {
+  alert(this.name + "Fight...");
+}
+function elHP() {
+  return document.querySelector(".player" + this.player + " .life");
+}
+function renderHP() {
+  return (this.elHP().style.width = this.hp + "%");
+}
+function changeHP(num) {
+  this.hp -= num;
+
+  if (this.hp <= 0) {
+    this.hp = 0;
+  }
+}
+function getRandom(num) {
+  return Math.ceil(Math.random() * num);
+}
 
 function createElement(tag, className) {
   const $tag = document.createElement(tag);
@@ -55,21 +77,6 @@ function createPlayer(playerObj) {
   return $player;
 }
 
-function changeHP(player) {
-  const $playerLife = document.querySelector(
-    ".player" + player.player + " .life"
-  );
-  player.hp -= getRandom(20);
-  $playerLife.style.width = player.hp + "%";
-  console.log($playerLife.style.width);
-
-  if (player.hp <= 0) {
-    player.hp = 0;
-  }
-
-  $playerLife.style.width = player.hp + "%";
-}
-
 function playerWins(name) {
   const $winTitle = createElement("div", "winTitle");
   if (name) {
@@ -81,16 +88,30 @@ function playerWins(name) {
   return $winTitle;
 }
 
-function getRandom(num) {
-  return Math.ceil(Math.random() * num);
+
+function createLoadButton() {
+  const $reloadWrap = createElement("div", "reloadWrap")
+  const $reloadButton = createElement("button", "button")
+  $reloadButton.innerText = "Reload"
+  $reloadWrap.appendChild($reloadButton)
+
+  return $reloadWrap
 }
 
 $randomButton.addEventListener("click", function () {
-  changeHP(player1);
-  changeHP(player2);
+  player1.changeHP(getRandom(20));
+  player2.changeHP(getRandom(20));
+  player1.renderHP();
+  player2.renderHP();
 
   if (player1.hp === 0 || player2.hp === 0) {
     $randomButton.disabled = true;
+    const $reloadButton = createLoadButton()
+    $reloadButton.addEventListener("click", function() {
+      window.location.reload();
+    })
+
+    $arenas.appendChild($reloadButton)
   }
 
   if (player1.hp === 0 && player2.hp > player1.hp) {
