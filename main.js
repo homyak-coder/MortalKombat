@@ -211,7 +211,7 @@ function generateLogs(type, who_hit, who_defence, damage) {
         .replace("[player1]", who_hit.name)
         .replace("[player2]", who_defence.name)
         .replace("[time]", time);
-      const elStart = `<p>${time} ${start}</p>`;
+      const elStart = `<p>${start}</p>`;
       $chat.insertAdjacentHTML("afterbegin", elStart);
       break;
     case "hit":
