@@ -2,7 +2,7 @@ import { getRandom } from "./utiits.js";
 
 const $chat = document.querySelector(".chat");
 
-export const logs = {
+const logs = {
   start:
     "Часы показывали [time], когда [player1] и [player2] бросили вызов друг другу.",
   end: [
@@ -43,7 +43,7 @@ export const logs = {
   draw: "Ничья - это тоже победа!",
 };
 
-export function generateLogs(type, who_hit, who_defence, damage) {
+function generateLogs(type, who_hit, who_defence, damage) {
   const date = new Date();
   const time = date.toLocaleTimeString();
   switch (type) {
@@ -85,3 +85,4 @@ export function generateLogs(type, who_hit, who_defence, damage) {
       break;
   }
 }
+export {logs, generateLogs};

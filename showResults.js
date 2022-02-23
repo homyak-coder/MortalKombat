@@ -4,7 +4,7 @@ import { generateLogs } from "./logs.js";
 
 const $arenas = document.querySelector(".arenas");
 
-export const showResult = () => {
+const showResult = () => {
   if (player1.hp === 0 || player2.hp === 0) {
     const $buttonFight = document.querySelector(".button");
     $buttonFight.disabled = true;
@@ -22,7 +22,7 @@ export const showResult = () => {
   }
 };
 
-export const playerWins = (name) => {
+const playerWins = (name) => {
   const $winTitle = createElement("div", "winTitle");
   if (name) {
     $winTitle.innerText = name + " wins";
@@ -32,3 +32,5 @@ export const playerWins = (name) => {
 
   return $winTitle;
 };
+
+export {showResult, playerWins}
