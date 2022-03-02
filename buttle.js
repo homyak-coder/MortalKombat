@@ -2,15 +2,15 @@ import { getRandom } from "./utiits.js";
 
 const $formFight = document.querySelector(".control");
 
-export const HIT = {
+const HIT = {
   head: 30,
   body: 25,
   foot: 20,
 };
 
-export const ATTACK = ["head", "body", "foot"];
+const ATTACK = ["head", "body", "foot"];
 
-export const enemyAttack = () => {
+const enemyAttack = () => {
   const hit = ATTACK[getRandom(3) - 1];
   const defence = ATTACK[getRandom(3) - 1];
 
@@ -21,7 +21,7 @@ export const enemyAttack = () => {
   };
 };
 
-export const playerAttack = () => {
+const playerAttack = () => {
   const attack = {};
 
   for (let item of $formFight) {
@@ -38,3 +38,5 @@ export const playerAttack = () => {
 
   return attack;
 };
+
+export {HIT, ATTACK, enemyAttack, playerAttack}

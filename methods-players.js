@@ -1,16 +1,18 @@
-export function attack() {
-  alert(this.name + "Fight...");
-}
-export function elHP() {
+// function attack() {
+//   alert(this.name + "Fight...");
+// }
+function elHP() {
   return document.querySelector(".player" + this.player + " .life");
 }
-export function renderHP() {
+function renderHP() {
   return this.elHP().style.width = this.hp + "%";
 }
-export function changeHP(num) {
+function changeHP(num) {
   this.hp -= num;
 
   if (this.hp <= 0) {
     this.hp = 0;
   }
 }
+
+export {elHP, renderHP, changeHP};

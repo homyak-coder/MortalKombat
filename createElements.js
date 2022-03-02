@@ -1,6 +1,6 @@
 const $arenas = document.querySelector(".arenas");
 
-export const createElement = (tag, className) => {
+const createElement = (tag, className) => {
   const $tag = document.createElement(tag);
   if (className) {
     $tag.classList.add(className);
@@ -9,16 +9,16 @@ export const createElement = (tag, className) => {
   return $tag;
 };
 
-export const createPlayer = (playerObj) => {
+const createPlayer = (playerObj) => {
   const { player, name, hp, img } = playerObj;
-  const $player = createElement("div", "player" + player);
+  const $player = createElement("div", `player${player}`);
   const $progressbar = createElement("div", "progressbar");
   const $character = createElement("div", "character");
   const $life = createElement("div", "life");
   const $name = createElement("div", "name");
   const $img = createElement("img");
 
-  $life.style.width = hp + "%";
+  $life.style.width = `${hp}%`;
   $name.innerText = name;
   $img.src = img;
 
@@ -33,7 +33,7 @@ export const createPlayer = (playerObj) => {
   return $player;
 };
 
-export const createLoadButton = () => {
+const createLoadButton = () => {
   const $reloadWrap = createElement("div", "reloadWrap");
   $arenas.appendChild($reloadWrap);
 
@@ -45,3 +45,5 @@ export const createLoadButton = () => {
     window.location.reload();
   });
 };
+
+export {createElement, createPlayer, createLoadButton}
