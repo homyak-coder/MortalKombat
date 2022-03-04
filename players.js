@@ -1,4 +1,5 @@
 import { elHP, renderHP, changeHP } from "./methods-players.js";
+import {getRandom} from "./utiits.js";
 
 class Player {
   constructor(props) {
@@ -14,25 +15,6 @@ class Player {
   renderHP = renderHP;
 }
 
-class Player1 extends Player {
-  constructor(props) {
-    super(props);
-  }
-}
+export {Player}
 
-const player1 = new Player( {
-  player: 1,
-  name: "Sonya Blaid",
-  hp: 100,
-  img: "http://reactmarathon-api.herokuapp.com/assets/sonya.gif",
-  weapon: ["Knife", "Sword"]
-});
-const player2 = new Player1({
-  player: 2,
-  name: "Kitana",
-  hp: 100,
-  img: "http://reactmarathon-api.herokuapp.com/assets/kitana.gif",
-  weapon: ["Bade", "Poison"],
-});
 
-export {player1, player2};

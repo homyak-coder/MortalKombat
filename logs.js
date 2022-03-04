@@ -43,46 +43,45 @@ const logs = {
   draw: "Ничья - это тоже победа!",
 };
 
-function generateLogs(type, who_hit, who_defence, damage) {
-  const date = new Date();
-  const time = date.toLocaleTimeString();
+function generateLogs(type, who_hit, who_defence, damage){
+  let time = new Date().toLocaleTimeString();
+  let text, info;
   switch (type) {
-    case "start":
-      const start = logs[type]
-        .replace("[player1]", who_hit.name)
-        .replace("[player2]", who_defence.name)
-        .replace("[time]", time);
-      const elStart = `<p>${start}</p>`;
-      $chat.insertAdjacentHTML("afterbegin", elStart);
+    case 'start':
+      text = logs[type]
+          .replace('[time]', time)
+          .replace('[player1]', who_hit.name)
+          .replace('[player2]', who_defence.name);
       break;
-    case "hit":
-      const hit = logs[type][getRandom(17)]
-        .replace("[playerKick]", who_hit.name)
-        .replace("[playerDefence]", who_defence.name);
-      const elHit = `<p>${time} ${hit} -${damage} ${who_defence.hp}/100</p>`;
-      $chat.insertAdjacentHTML("afterbegin", elHit);
+
+    case 'end':
+      text = logs[type][getRandom(logs[type].length)]
+          .replace('[playerWins]', who_hit.name)
+          .replace('[playerLose]', who_defence.name);
       break;
-    case "defence":
-      const defence = logs[type][getRandom(7)]
-        .replace("[playerKick]", who_hit.name)
-        .replace("[playerDefence]", who_defence.name);
-      const elDefence = `<p>${time} ${defence}</p>`;
-      $chat.insertAdjacentHTML("afterbegin", elDefence);
+
+    case 'hit':
+      info = logs[type][getRandom(logs[type].length)]
+          .replace('[playerKick]', who_hit.name)
+          .replace('[playerDefence]', who_defence.name);
+      text = `${time} ${info} -${damage} ${who_defence.hp}/100`
       break;
-    case "end":
-      const end = logs[type][getRandom(2)]
-        .replace("[playerWins]", who_hit.name)
-        .replace("[playerLose]", who_defence.name);
-      const elEnd = `<p>${time} ${end}</p>`;
-      $chat.insertAdjacentHTML("afterbegin", elEnd);
+
+    case 'defence':
+      info = logs[type][getRandom(logs[type].length)]
+          .replace('[playerKick]', who_hit.name)
+          .replace('[playerDefence]', who_defence.name);
+      text = `${time} ${info}`
       break;
-    case "draw":
-      const draw = logs[type][0];
-      const elDraw = `<p>${time} ${draw}</p>`;
-      $chat.insertAdjacentHTML("afterbegin", elDraw);
+
+    case 'draw':
+      text = logs[type];
       break;
+
     default:
       break;
   }
+  const el =`<p>${text}</p>`;
+  $chat.insertAdjacentHTML('afterbegin', el);
 }
 export {logs, generateLogs};

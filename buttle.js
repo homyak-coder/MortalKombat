@@ -8,20 +8,9 @@ const HIT = {
   foot: 20,
 };
 
-const ATTACK = ["head", "body", "foot"];
 
-const enemyAttack = () => {
-  const hit = ATTACK[getRandom(3) - 1];
-  const defence = ATTACK[getRandom(3) - 1];
 
-  return {
-    value: getRandom(HIT[hit]),
-    hit,
-    defence,
-  };
-};
-
-const playerAttack = () => {
+const playerAttack = async () => {
   const attack = {};
 
   for (let item of $formFight) {
@@ -36,7 +25,15 @@ const playerAttack = () => {
     item.checked = false;
   }
 
-  return attack;
+  const result = await fetch('http://reactmarathon-api.herokuapp.com/api/mk/player/fight', {
+    method: 'POST',
+    body: JSON.stringify({
+      hit: attack.hit,
+      defence: attack.defence
+    })
+  }).then(data => data.json());
+
+  return result
 };
 
-export {HIT, ATTACK, enemyAttack, playerAttack}
+export {HIT, playerAttack}

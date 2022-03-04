@@ -1,4 +1,4 @@
-import { player1, player2 } from "./players.js";
+import { player1, player2 } from "./game.js";
 import { createElement, createLoadButton } from "./createElements.js";
 import { generateLogs } from "./logs.js";
 
